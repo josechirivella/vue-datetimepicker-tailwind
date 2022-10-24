@@ -1,40 +1,49 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
-
-    <p>
-      <a href="https://vitejs.dev/guide/features.html" target="_blank"
-        >Vite Documentation</a
-      >
-      |
-      <a href="https://vuejs.org/v2/guide/" target="_blank"
-        >Vue 2 Documentation</a
-      >
-    </p>
-
-    <button @click="count++">count is: {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test hot module replacement.
-    </p>
+  <div id="hello-world-container">
+    <div class="d-inline-flex align-items-center">
+      <div class="mr-5">
+        <label for="example-datepicker">Choose a date</label>
+        <b-form-datepicker
+          id="example-datepicker"
+          v-model="value"
+          class="mb-2"
+        ></b-form-datepicker>
+        Value: {{ value }}
+      </div>
+      <div>
+        <b-time v-model="timeValue" locale="en" @context="onContext"></b-time>
+        <p>Value: '{{ timeValue }}'</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { BFormDatepicker, BTime } from "bootstrap-vue";
+
 export default {
-  props: {
-    msg: String,
+  components: {
+    BFormDatepicker,
+    BTime,
   },
   data() {
     return {
-      count: 0,
+      value: "",
+      timeValue: "",
+      context: null,
     };
+  },
+  methods: {
+    onContext(ctx) {
+      this.context = ctx;
+    },
   },
 };
 </script>
 
-<style scoped>
-a {
-  color: #42b983;
+<style lang="scss">
+#hello-world-container {
+  width: 50%;
+  margin: 0 auto;
 }
 </style>
